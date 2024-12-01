@@ -127,4 +127,8 @@ public class TheaterServices {
         }
         return theaterList1;
     }
+
+    public int getUniqueLocations(String theaterName) {
+        return theaterRepository.findUniqueLocations(theaterName);
+    }
 }

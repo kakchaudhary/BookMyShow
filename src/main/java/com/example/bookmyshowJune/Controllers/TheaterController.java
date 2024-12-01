@@ -48,6 +48,12 @@ public class TheaterController {
 
         return theaters;
     }
+    
+    @GetMapping("/uniqueLocations")
+    public int getUniqueLocations(@RequestParam String theaterName) {
+        int count = theaterServices.getUniqueLocations(theaterName);
+        return count;
+    }
 
 }
 

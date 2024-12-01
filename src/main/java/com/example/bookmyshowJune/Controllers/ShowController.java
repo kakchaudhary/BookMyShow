@@ -73,9 +73,7 @@ public class ShowController {
     }
     
     @GetMapping("/getShowTimes")
-    public ResponseEntity<?> getShowTimes(
-            @RequestParam String movieName,
-            @RequestParam String theaterName) {
+    public ResponseEntity<?> getShowTimes(@RequestParam String movieName,@RequestParam String theaterName) {
         try {
             List<String> showTimes = showService.getShowTimes(movieName, theaterName);
             if (showTimes.isEmpty()) {
