@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bookmyshowJune.Dtos.RequestDto.AddShowDto;
 import com.example.bookmyshowJune.Dtos.RequestDto.ShowSeatsDto;
+import com.example.bookmyshowJune.Models.Theater;
 import com.example.bookmyshowJune.Services.ShowService;
 
 @RestController
@@ -73,7 +74,9 @@ public class ShowController {
     }
     
     @GetMapping("/getShowTimes")
-    public ResponseEntity<?> getShowTimes(@RequestParam String movieName,@RequestParam String theaterName) {
+    public ResponseEntity<?> getShowTimes(
+            @RequestParam String movieName,
+            @RequestParam String theaterName) {
         try {
             List<String> showTimes = showService.getShowTimes(movieName, theaterName);
             if (showTimes.isEmpty()) {
@@ -85,5 +88,19 @@ public class ShowController {
         }
     }
 
+    
+    @GetMapping("/theatersByTime")
+    public ResponseEntity<List<Theater>> getTheatersByShowTime(@RequestParam String time) {
+        try {
+            LocalTime showTime = LocalTime.parse(time);
+            List<Theater> theaters = showService.getTheatersByShowTime(showTime);
+            if (theaters.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(theaters, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

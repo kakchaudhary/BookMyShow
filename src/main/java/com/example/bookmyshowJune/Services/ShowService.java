@@ -155,5 +155,9 @@ public class ShowService {
                     .map(show -> show.getTime().toString())
                     .collect(Collectors.toList());
     }
+    
+    public List<Theater> getTheatersByShowTime(LocalTime showTime) {
+        return showRepository.findTheatersByShowTime(showTime);
+    }
 
 }
