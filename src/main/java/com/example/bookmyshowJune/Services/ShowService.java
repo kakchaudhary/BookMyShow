@@ -1,25 +1,29 @@
 package com.example.bookmyshowJune.Services;
 
 
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.bookmyshowJune.Dtos.RequestDto.AddShowDto;
 import com.example.bookmyshowJune.Dtos.RequestDto.ShowSeatsDto;
 import com.example.bookmyshowJune.Enums.SeatType;
 import com.example.bookmyshowJune.Exception.MovieNotFound;
 import com.example.bookmyshowJune.Exception.ShowNotFound;
 import com.example.bookmyshowJune.Exception.TheaterNotFound;
-import com.example.bookmyshowJune.Models.*;
+import com.example.bookmyshowJune.Models.Movie;
+import com.example.bookmyshowJune.Models.Show;
+import com.example.bookmyshowJune.Models.ShowSeat;
+import com.example.bookmyshowJune.Models.Theater;
+import com.example.bookmyshowJune.Models.TheaterSeat;
 import com.example.bookmyshowJune.Repository.MovieRepository;
 import com.example.bookmyshowJune.Repository.ShowRepository;
 import com.example.bookmyshowJune.Repository.TheaterRepository;
 import com.example.bookmyshowJune.Transformers.ShowTransformer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ShowService {
@@ -142,6 +146,14 @@ public class ShowService {
             }
         }
         return ans;
+    }
+    
+
+    public List<String> getShowTimes(String movieName, String theaterName) {
+        List<Show> shows = showRepository.findShowTimes(movieName, theaterName);
+        return shows.stream()
+                    .map(show -> show.getTime().toString())
+                    .collect(Collectors.toList());
     }
 
 }

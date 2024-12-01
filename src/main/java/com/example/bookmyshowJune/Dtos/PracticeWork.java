@@ -2,7 +2,7 @@ package com.example.bookmyshowJune.Dtos;
 
 public class PracticeWork {
 //            Practice Queries for Major Project-
-//            1. Get Show time for a theater and a movie
+//            1. Get Show time for a theater and a movie  ---> Done by Kaushik
 //            2. Find the movieName with the Maximum number of Shows across all places combined.  ---> DONE
 //            3. Get count of unique locations of a theater
 //            4. Get the list of theaters Showing a particular time.
