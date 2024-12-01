@@ -24,6 +24,16 @@ public class TheaterController {
         return theaterServices.addTheater(theaterEntryDto);
     }
 
+    // For Adding Multiple Theaters at One Call By Kaushik 
+    @PostMapping("/addMultiple")
+    public String addTheaters(@RequestBody List<TheaterEntryDto> theaterEntryDtos) {
+        StringBuilder response = new StringBuilder();
+        for (TheaterEntryDto theaterEntryDto : theaterEntryDtos) {
+            response.append(theaterEntryDto.getName()+" ").append(theaterServices.addTheater(theaterEntryDto)).append("\n");
+        }
+        return response.toString();
+    }
+
     @PostMapping("/addTheaterSeats")
     public String addTheaterSeats(@RequestBody TheaterSeatsEntryDto entryDto){
 

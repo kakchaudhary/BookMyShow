@@ -21,7 +21,6 @@ public class UserController {
 
     @PostMapping("/add")
     public String addUser(@RequestBody AddUserDto user){
-
         try{
             String result = userService.addUser(user);
             return result;
@@ -29,6 +28,29 @@ public class UserController {
             return e.getMessage();
         }
     }
+    
+    // For Adding Add Multiple Users at One Call By Kaushik 
+    @PostMapping("/add-multiple-users")
+    public String addUsers(@RequestBody List<AddUserDto> users) {
+        StringBuilder response = new StringBuilder();
+        for (AddUserDto user : users) {
+            try {
+                // Call service to add the user
+                String result = userService.addUser(user);
+                response.append("User Name: ").append(user.getName())
+                        .append(" - Status: ").append(result)
+                        .append("\n");
+            } catch (Exception e) {
+                // Handle error if adding user fails
+                response.append("User Name: ").append(user.getName())
+                        .append(" - Status: Failed - ").append(e.getMessage())
+                        .append("\n");
+            }
+        }
+
+        return response.toString();
+    }
+
 
     //Get oldest User Object by age
     @GetMapping("/getOlderUser")
